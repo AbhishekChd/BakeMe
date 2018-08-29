@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.example.abhishek.bakeme.R;
@@ -23,6 +24,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        setupToolbar();
+
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView() {
         final RecipeAdapter adapter = new RecipeAdapter(this);
         GridLayoutManager layoutManager = new GridLayoutManager(
                 this,
@@ -32,6 +39,10 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+        setupViewModel(adapter);
+    }
+
+    private void setupViewModel(final RecipeAdapter adapter) {
         HomeViewModel viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         viewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
@@ -42,5 +53,10 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 }
