@@ -28,7 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 .getDrawable(R.drawable.recipe_card_gradient);
         mAppIcon = context
                 .getResources()
-                .getDrawable(R.mipmap.ic_launcher_round);
+                .getDrawable(R.drawable.ic_logo);
     }
 
     @NonNull

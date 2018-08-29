@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
@@ -23,7 +24,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         final RecipeAdapter adapter = new RecipeAdapter(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(
+                this,
+                getResources().getInteger(R.integer.recipe_grid_item_size)
+        );
         RecyclerView recyclerView = findViewById(R.id.rv_recipe_list);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
         HomeViewModel viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
