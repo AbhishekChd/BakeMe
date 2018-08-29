@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Bake Me</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="recipe_image_description">Recipe image</string>
+    <string name="user_image_description">People that can be served</string>
+    <string name="sample_recipe_name">Nutella Pie</string>
+    <string name="sample_servings">8</string>
 </resources>
