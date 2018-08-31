@@ -42,7 +42,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder recipeViewHolder, int i) {
         recipeViewHolder.recipeName.setText(mRecipes.get(i).getName());
-        recipeViewHolder.peopleServing.setText(String.valueOf(mRecipes.get(i).getServings()));
+        recipeViewHolder.peopleServing.setText(
+                recipeViewHolder.itemView.getResources()
+                        .getString(R.string.people_label, mRecipes.get(i).getServings())
+        );
 
         String imagePath = mRecipes.get(i).getImage();
 
