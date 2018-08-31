@@ -7,6 +7,6 @@
     <color name="colorTextPrimary">#000000</color>
     <color name="colorTextAccent">#ffffff</color>
 
-    <color name="colorCardGradientStart">#F7971E</color>
-    <color name="colorCardGradientEnd">#FFD200</color>
+    <color name="colorCardGradientStart">#FFAFBD</color>
+    <color name="colorCardGradientEnd">#ffc3a0</color>
 </resources>
