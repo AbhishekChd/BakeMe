@@ -17,11 +17,16 @@ public class DetailActivity extends AppCompatActivity
     public static final String PARAM_INGREDIENT = "ingredients";
     public static final String PARAM_STEPS = "steps";
     private static final String TAG = DetailActivity.class.getSimpleName();
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        if (findViewById(R.id.tab_container) != null) {
+            mTwoPane = true;
+        }
 
         ArrayList<Ingredient> ingredients = null;
         ArrayList<Step> steps = null;
