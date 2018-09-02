@@ -32,7 +32,7 @@
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_large"
         android:text="@string/steps_label"
         app:layout_constraintStart_toStartOf="@id/ingredients_label"
         app:layout_constraintTop_toBottomOf="@id/rv_ingredients" />

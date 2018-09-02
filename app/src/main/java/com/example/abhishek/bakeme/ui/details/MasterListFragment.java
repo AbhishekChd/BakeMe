@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,10 +87,14 @@ public class MasterListFragment extends Fragment {
         // Inflate the layout for this fragment
         RecyclerView rv = root.findViewById(R.id.rv_ingredients);
         IngredientAdapter ingredientAdapter = new IngredientAdapter(ingredientList);
+        DividerItemDecoration decoration =
+                new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL);
+        rv.addItemDecoration(decoration);
         rv.setAdapter(ingredientAdapter);
 
         RecyclerView rv2 = root.findViewById(R.id.rv_steps);
         StepsAdapter stepsAdapter = new StepsAdapter(stepsList);
+        rv2.addItemDecoration(decoration);
         rv2.setAdapter(stepsAdapter);
         return root;
     }
