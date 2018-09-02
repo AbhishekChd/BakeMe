@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +19,20 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private static final String TAG = RecipeAdapter.class.getSimpleName();
+
     private final Drawable mBackgroundGradient;
     private final Drawable mAppIcon;
+    private final OnRecipeCardInteraction mCardInteraction;
     private List<Recipe> mRecipes;
 
-    public RecipeAdapter(Context context) {
+    public RecipeAdapter(Context context, OnRecipeCardInteraction cardInteraction) {
         mBackgroundGradient = context
                 .getResources()
                 .getDrawable(R.drawable.recipe_card_gradient);
         mAppIcon = context
                 .getResources()
                 .getDrawable(R.drawable.ic_logo);
+        mCardInteraction = cardInteraction;
     }
 
     @NonNull
@@ -66,7 +70,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         notifyDataSetChanged();
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public interface OnRecipeCardInteraction {
+        void onRecipeCardClick(int position);
+    }
+
+    class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView recipeName;
         final TextView peopleServing;
         final ImageView recipeImage;
@@ -76,6 +84,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             recipeName = itemView.findViewById(R.id.tv_recipe_name);
             peopleServing = itemView.findViewById(R.id.tv_people_serving);
             recipeImage = itemView.findViewById(R.id.iv_recipe_image);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d(TAG, "onClick(): Clicked card");
+            mCardInteraction.onRecipeCardClick(
+                    getAdapterPosition()
+            );
         }
     }
 }

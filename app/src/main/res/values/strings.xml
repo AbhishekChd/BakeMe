@@ -6,4 +6,10 @@
     <string name="sample_recipe_name">Nutella Pie</string>
     <string name="sample_servings">8</string>
     <string name="people_label">%d People</string>
+    <string name="sample_ingredient">2g Graham Cracker crumbs</string>
+    <string name="ingredient_item">%.1f %s %s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ingredients_label">Ingredients</string>
 </resources>
