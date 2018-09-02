@@ -15,6 +15,7 @@ import com.example.abhishek.bakeme.R;
 import com.example.abhishek.bakeme.adapters.RecipeAdapter;
 import com.example.abhishek.bakeme.models.Ingredient;
 import com.example.abhishek.bakeme.models.Recipe;
+import com.example.abhishek.bakeme.models.Step;
 import com.example.abhishek.bakeme.ui.details.DetailActivity;
 
 import java.util.ArrayList;
@@ -75,8 +76,12 @@ public class HomeActivity extends AppCompatActivity
 
         ArrayList<Ingredient> ingredients
                 = new ArrayList<>(mRecipes.get(position).getIngredients());
+
+        ArrayList<Step> steps
+                = new ArrayList<>(mRecipes.get(position).getSteps());
         Log.d(LOG_TAG, ingredients.toString());
         intent.putParcelableArrayListExtra(DetailActivity.PARAM_INGREDIENT, ingredients);
+        intent.putParcelableArrayListExtra(DetailActivity.PARAM_STEPS, steps);
         startActivity(intent);
     }
 }

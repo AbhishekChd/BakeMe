@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.abhishek.bakeme.R;
 import com.example.abhishek.bakeme.adapters.IngredientAdapter;
+import com.example.abhishek.bakeme.adapters.StepsAdapter;
 import com.example.abhishek.bakeme.models.Ingredient;
+import com.example.abhishek.bakeme.models.Step;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +32,12 @@ import java.util.List;
 public class MasterListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_INGREDIENTS = "ingredients";
+    private static final String ARG_STEPS = "steps";
 
     // TODO: Rename and change types of parameters
-    private List<Ingredient> mParam1;
-    private String mParam2;
+    private List<Ingredient> ingredientList;
+    private List<Step> stepsList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,11 +54,11 @@ public class MasterListFragment extends Fragment {
      * @return A new instance of fragment MasterListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MasterListFragment newInstance(ArrayList<Ingredient> param1, String param2) {
+    public static MasterListFragment newInstance(ArrayList<Ingredient> param1, ArrayList<Step> param2) {
         MasterListFragment fragment = new MasterListFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelableArrayList(ARG_INGREDIENTS, param1);
+        args.putParcelableArrayList(ARG_STEPS, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,8 +67,8 @@ public class MasterListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getParcelableArrayList(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            ingredientList = getArguments().getParcelableArrayList(ARG_INGREDIENTS);
+            stepsList = getArguments().getParcelableArrayList(ARG_STEPS);
         }
     }
 
@@ -79,12 +81,16 @@ public class MasterListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("MasterList", "onCreateView(): " + mParam1);
+        Log.d("MasterList", "onCreateView(): " + ingredientList);
         View root = inflater.inflate(R.layout.fragment_master_list, container, false);
         // Inflate the layout for this fragment
         RecyclerView rv = root.findViewById(R.id.rv_ingredients);
-        IngredientAdapter ingredientAdapter = new IngredientAdapter(mParam1);
+        IngredientAdapter ingredientAdapter = new IngredientAdapter(ingredientList);
         rv.setAdapter(ingredientAdapter);
+
+        RecyclerView rv2 = root.findViewById(R.id.rv_steps);
+        StepsAdapter stepsAdapter = new StepsAdapter(stepsList);
+        rv2.setAdapter(stepsAdapter);
         return root;
     }
 
