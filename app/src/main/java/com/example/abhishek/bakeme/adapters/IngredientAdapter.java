@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.abhishek.bakeme.R;
 import com.example.abhishek.bakeme.models.Ingredient;
+import com.example.abhishek.bakeme.utils.FormatHelper;
 
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
                         .getResources()
                         .getString(
                                 R.string.ingredient_item,
-                                ingredients.get(position).getQuantity(),
+                                FormatHelper.convertDecimalToFraction(
+                                        ingredients.get(position).getQuantity()),
                                 ingredients.get(position).getMeasure().toLowerCase(),
                                 ingredients.get(position).getIngredient()
                         ));
