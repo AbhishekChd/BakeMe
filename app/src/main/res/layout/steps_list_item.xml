@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_small">
+
+    <ImageView
+        android:id="@+id/iv_step_back"
+        android:layout_width="@dimen/step_number_image_size"
+        android:layout_height="@dimen/step_number_image_size"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:src="@drawable/circular_element"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_step_number"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_step_back"
+        app:layout_constraintEnd_toEndOf="@id/iv_step_back"
+        app:layout_constraintStart_toStartOf="@id/iv_step_back"
+        app:layout_constraintTop_toTopOf="@id/iv_step_back"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tv_step_description"
+        style="@style/DetailsText"
+        android:layout_marginStart="@dimen/margin_medium"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_step_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_step_back"
+        tools:text="@string/sample_ingredient" />
+
+</android.support.constraint.ConstraintLayout>

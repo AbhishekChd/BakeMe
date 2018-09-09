@@ -32,6 +32,7 @@ public class RecipeNetworkDataSource {
     }
 
     public LiveData<List<Recipe>> fetchRecipes(Context context) {
+        Log.d(LOG_TAG, "Network request made");
         RecipeClient client = RecipeService.getInstance(context);
         Call<List<Recipe>> call = client.getRecipes();
         call.enqueue(new Callback<List<Recipe>>() {
