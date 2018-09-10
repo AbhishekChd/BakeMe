@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.add(R.id.master_list_fragment, recipeStepFragment);
+            fragmentTransaction.replace(R.id.step_description_fragment, recipeStepFragment);
             fragmentTransaction.commit();
         } else {
             Intent intent = new Intent(this, RecipeStepActivity.class);
