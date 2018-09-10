@@ -1,9 +1,10 @@
 package com.example.abhishek.bakeme.ui.step;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -75,14 +76,19 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_step, container, false);
         final TextView tvStepDescription = view.findViewById(R.id.tv_step_instruction);
-        tvStepDescription.setText(getArguments().getString(ARG_PARAM2));
-        mSimpleExoPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.playerView);
-        mSimpleExoPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(
-                getResources(), R.drawable.recipe_card_gradient
-        ));
+        tvStepDescription.setText(stepInstruction);
+        mSimpleExoPlayerView = view.findViewById(R.id.playerView);
         if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
             Log.d(TAG, "onCreateView(): Video URL:" + videoUrl);
             initializePlayer(Uri.parse(videoUrl));
+        } else {
+            CoordinatorLayout coordinatorLayout = view.findViewById(R.id.coordinator_layout);
+            Snackbar snackbar = Snackbar.make(
+                    coordinatorLayout,
+                    getString(R.string.error_no_video),
+                    Snackbar.LENGTH_LONG
+            );
+            snackbar.show();
         }
         return view;
     }
