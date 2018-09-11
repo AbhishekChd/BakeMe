@@ -23,9 +23,6 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnStepClickListener} interface
- * to handle interaction events.
  * Use the {@link MasterListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -81,20 +78,23 @@ public class MasterListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("MasterList", "onCreateView(): " + ingredientList);
-        View root = inflater.inflate(R.layout.fragment_master_list, container, false);
         // Inflate the layout for this fragment
-        RecyclerView rv = root.findViewById(R.id.rv_ingredients);
+        View root = inflater.inflate(R.layout.fragment_master_list, container, false);
+
+        // Setup ingredients Recycler view
+        RecyclerView rvIngredients = root.findViewById(R.id.rv_ingredients);
         IngredientAdapter ingredientAdapter = new IngredientAdapter(ingredientList);
         DividerItemDecoration decoration =
                 new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL);
-        rv.addItemDecoration(decoration);
-        rv.setAdapter(ingredientAdapter);
+        rvIngredients.addItemDecoration(decoration);
+        rvIngredients.setAdapter(ingredientAdapter);
 
-        RecyclerView rv2 = root.findViewById(R.id.rv_steps);
+        // Setup steps Recycler view
+        RecyclerView rvSteps = root.findViewById(R.id.rv_steps);
         StepsAdapter stepsAdapter = new StepsAdapter(stepsList, mCallback);
-        rv2.addItemDecoration(decoration);
-        rv2.setAdapter(stepsAdapter);
+        rvSteps.addItemDecoration(decoration);
+        rvSteps.setAdapter(stepsAdapter);
+
         return root;
     }
 
