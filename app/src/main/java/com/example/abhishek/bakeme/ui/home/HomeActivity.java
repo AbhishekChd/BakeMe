@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.example.abhishek.bakeme.R;
@@ -30,9 +29,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        setupToolbar();
-
         setupRecyclerView();
     }
 
@@ -64,11 +60,6 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-    private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-
     @Override
     public void onRecipeCardClick(int position) {
         Log.d(LOG_TAG, "Starting intent");
@@ -82,6 +73,7 @@ public class HomeActivity extends AppCompatActivity
         Log.d(LOG_TAG, ingredients.toString());
         intent.putParcelableArrayListExtra(DetailActivity.PARAM_INGREDIENT, ingredients);
         intent.putParcelableArrayListExtra(DetailActivity.PARAM_STEPS, steps);
+        intent.putExtra(DetailActivity.PARAM_NAME, mRecipes.get(position).getName());
         startActivity(intent);
     }
 }

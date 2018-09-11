@@ -15,9 +15,11 @@ import java.util.List;
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHolder> {
 
     private final List<Step> mSteps;
+    private OnStepInteraction mCallback;
 
-    public StepsAdapter(List<Step> steps) {
+    public StepsAdapter(List<Step> steps, OnStepInteraction onStepInteraction) {
         mSteps = steps;
+        mCallback = onStepInteraction;
     }
 
     @NonNull
@@ -39,7 +41,11 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
         return mSteps == null ? 0 : mSteps.size();
     }
 
-    class StepsViewHolder extends RecyclerView.ViewHolder {
+    public interface OnStepInteraction {
+        void onStepClick(int id);
+    }
+
+    class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TextView tvStepNumber;
         final TextView tvStepDescription;
 
@@ -47,6 +53,12 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsViewHol
             super(itemView);
             tvStepNumber = itemView.findViewById(R.id.tv_step_number);
             tvStepDescription = itemView.findViewById(R.id.tv_step_description);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mCallback.onStepClick(getAdapterPosition());
         }
     }
 }
