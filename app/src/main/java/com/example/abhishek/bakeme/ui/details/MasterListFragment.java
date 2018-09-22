@@ -81,6 +81,13 @@ public class MasterListFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_master_list, container, false);
 
+        // Setup ingredients and steps recycler views
+        setupRecyclerViews(container, root);
+
+        return root;
+    }
+
+    private void setupRecyclerViews(ViewGroup container, View root) {
         // Setup ingredients Recycler view
         RecyclerView rvIngredients = root.findViewById(R.id.rv_ingredients);
         IngredientAdapter ingredientAdapter = new IngredientAdapter(ingredientList);
@@ -94,8 +101,6 @@ public class MasterListFragment extends Fragment {
         StepsAdapter stepsAdapter = new StepsAdapter(stepsList, mCallback);
         rvSteps.addItemDecoration(decoration);
         rvSteps.setAdapter(stepsAdapter);
-
-        return root;
     }
 
     @Override

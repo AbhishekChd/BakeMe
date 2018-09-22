@@ -1,6 +1,8 @@
 package com.example.abhishek.bakeme.ui.step;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.abhishek.bakeme.R;
+import com.example.abhishek.bakeme.models.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -31,6 +35,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,11 +45,9 @@ import com.google.android.exoplayer2.util.Util;
  */
 public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener {
     private static final String TAG = RecipeStepFragment.class.getSimpleName();
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_STEP = "current-step";
 
-    private String videoUrl;
-    private String stepInstruction;
+    private Step currentStep;
 
     private SimpleExoPlayer mExoPlayer;
     private SimpleExoPlayerView mSimpleExoPlayerView;
@@ -52,11 +56,10 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         // Required empty public constructor
     }
 
-    public static RecipeStepFragment newInstance(String param1, String param2) {
+    public static RecipeStepFragment newInstance(Step currentStep) {
         RecipeStepFragment fragment = new RecipeStepFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_STEP, currentStep);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,8 +68,7 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            videoUrl = getArguments().getString(ARG_PARAM1);
-            stepInstruction = getArguments().getString(ARG_PARAM2);
+            currentStep = getArguments().getParcelable(ARG_STEP);
         }
     }
 
@@ -75,9 +77,36 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_step, container, false);
-        final TextView tvStepDescription = view.findViewById(R.id.tv_step_instruction);
-        tvStepDescription.setText(stepInstruction);
+
+        // Find and set Exo Player view
         mSimpleExoPlayerView = view.findViewById(R.id.playerView);
+
+        String thumbnailUrl = currentStep.getThumbnailURL();
+        if (thumbnailUrl != null && !TextUtils.isEmpty(thumbnailUrl)) {
+            Picasso.get()
+                    .load(thumbnailUrl)
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            mSimpleExoPlayerView.setDefaultArtwork(bitmap);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        }
+                    });
+        }
+
+        // Set step description for current step
+        final TextView tvStepDescription = view.findViewById(R.id.tv_step_instruction);
+        tvStepDescription.setText(currentStep.getDescription());
+
+
+        String videoUrl = currentStep.getVideoURL();
         if (videoUrl != null && !TextUtils.isEmpty(videoUrl)) {
             Log.d(TAG, "onCreateView(): Video URL:" + videoUrl);
             initializePlayer(Uri.parse(videoUrl));

@@ -12,4 +12,5 @@
     <string name="steps_label">Steps</string>
     <string name="sample_recipe_step_desc">1. Preheat the oven to 350°F. Butter a 9\" deep dish pie pan.</string>
     <string name="error_no_video">No video for current step!</string>
+    <string name="video_thumbnail">Video Thumbnail</string>
 </resources>

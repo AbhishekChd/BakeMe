@@ -34,10 +34,7 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         setupActionBar();
 
-        RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(
-                steps.get(index).getVideoURL(),
-                steps.get(index).getDescription()
-        );
+        RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(steps.get(index));
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 

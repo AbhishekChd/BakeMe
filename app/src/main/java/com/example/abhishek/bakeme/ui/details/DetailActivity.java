@@ -72,10 +72,7 @@ public class DetailActivity extends AppCompatActivity
     @Override
     public void onStepClick(int id) {
         if (mTwoPane) {
-            RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(
-                    steps.get(id).getVideoURL(),
-                    steps.get(id).getDescription()
-            );
+            RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(steps.get(id));
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
