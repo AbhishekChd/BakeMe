@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.abhishek.bakeme.R;
 import com.example.abhishek.bakeme.models.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,13 +52,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                         .getString(R.string.people_label, mRecipes.get(i).getServings())
         );
 
+        // Load image if not an empty path
         String imagePath = mRecipes.get(i).getImage();
-
-        if (TextUtils.isEmpty(imagePath)) {
+        if (!TextUtils.isEmpty(imagePath)) {
+            Picasso.get()
+                    .load(imagePath)
+                    .placeholder(mBackgroundGradient)
+                    .error(mAppIcon)
+                    .into(recipeViewHolder.recipeImage);
+        } else {
             recipeViewHolder.recipeImage.setBackground(mBackgroundGradient);
             recipeViewHolder.recipeImage.setImageDrawable(mAppIcon);
         }
-
     }
 
     @Override

@@ -39,6 +39,9 @@ dependencies {
     // ExoPLayer
     implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
 
+    // Image Loading from Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation "com.android.support:support-v4:$support_version"
 
     testImplementation 'junit:junit:4.12'
