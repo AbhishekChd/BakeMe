@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        mTwoPane = findViewById(R.id.tab_container) != null;
+        mTwoPane = getResources().getBoolean(R.bool.isTablet);
 
         if (getIntent().getExtras() != null) {
             if (getIntent().hasExtra(PARAM_INGREDIENT)) {
