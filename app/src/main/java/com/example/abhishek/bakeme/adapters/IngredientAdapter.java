@@ -37,44 +37,14 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder ingredientHolder, int position) {
-        String quantityString = FormatHelper
-                .convertDecimalToFraction(ingredients.get(position).getQuantity());
-
-        String quantityStringArray[] = quantityString.split(" ");
-
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
-
-        // Add the quantity to String first
-        for (String s : quantityStringArray) {
-            spannableStringBuilder.append(s);
-        }
-
-        // Edit spannable string for fractional units
-        if (quantityString.contains("/")) {
-            int start = 0;
-            if (quantityStringArray.length == 2) {
-                start = quantityStringArray[0].length();
-            }
-            spannableStringBuilder.setSpan(new SuperscriptSpan(), start, start + 1, 0);
-            spannableStringBuilder.setSpan(new RelativeSizeSpan(0.65f), start, start + 3, 0);
-            spannableStringBuilder.setSpan(new SubscriptSpan(), start + 2, start + 3, 0);
-        }
-
-        // Add units of quantity
-        spannableStringBuilder
-                .append(" ")
-                .append(ingredients.get(position).getMeasure().toLowerCase());
-
-        // Make quantity and unit bold
-        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableStringBuilder.length(), 0);
-
-        // Finally add the ingredient
-        spannableStringBuilder
-                .append(" ")
-                .append(ingredients.get(position).getIngredient());
-
         // Set the text to TextView
-        ingredientHolder.tvIngredient.setText(spannableStringBuilder);
+        ingredientHolder.tvIngredient.setText(
+                FormatHelper.convertIngredient(
+                        ingredients.get(position).getQuantity(),
+                        ingredients.get(position).getMeasure(),
+                        ingredients.get(position).getIngredient()
+                )
+        );
     }
 
     @Override
