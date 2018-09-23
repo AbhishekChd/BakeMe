@@ -34,12 +34,14 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         setupActionBar();
 
-        RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(steps.get(index));
+        if (savedInstanceState == null) {
+            RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(steps.get(index));
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        fragmentTransaction.replace(R.id.step_description_fragment, recipeStepFragment);
-        fragmentTransaction.commit();
+            fragmentTransaction.replace(R.id.step_description_fragment, recipeStepFragment);
+            fragmentTransaction.commit();
+        }
     }
 
     private void setupActionBar() {
