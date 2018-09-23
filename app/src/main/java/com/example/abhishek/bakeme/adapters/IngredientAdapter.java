@@ -1,7 +1,13 @@
 package com.example.abhishek.bakeme.adapters;
 
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.SubscriptSpan;
+import android.text.style.SuperscriptSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,17 +37,44 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder ingredientHolder, int position) {
-        ingredientHolder.tvIngredient.setText(
-                ingredientHolder
-                        .tvIngredient
-                        .getResources()
-                        .getString(
-                                R.string.ingredient_item,
-                                FormatHelper.convertDecimalToFraction(
-                                        ingredients.get(position).getQuantity()),
-                                ingredients.get(position).getMeasure().toLowerCase(),
-                                ingredients.get(position).getIngredient()
-                        ));
+        String quantityString = FormatHelper
+                .convertDecimalToFraction(ingredients.get(position).getQuantity());
+
+        String quantityStringArray[] = quantityString.split(" ");
+
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+
+        // Add the quantity to String first
+        for (String s : quantityStringArray) {
+            spannableStringBuilder.append(s);
+        }
+
+        // Edit spannable string for fractional units
+        if (quantityString.contains("/")) {
+            int start = 0;
+            if (quantityStringArray.length == 2) {
+                start = quantityStringArray[0].length();
+            }
+            spannableStringBuilder.setSpan(new SuperscriptSpan(), start, start + 1, 0);
+            spannableStringBuilder.setSpan(new RelativeSizeSpan(0.65f), start, start + 3, 0);
+            spannableStringBuilder.setSpan(new SubscriptSpan(), start + 2, start + 3, 0);
+        }
+
+        // Add units of quantity
+        spannableStringBuilder
+                .append(" ")
+                .append(ingredients.get(position).getMeasure().toLowerCase());
+
+        // Make quantity and unit bold
+        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableStringBuilder.length(), 0);
+
+        // Finally add the ingredient
+        spannableStringBuilder
+                .append(" ")
+                .append(ingredients.get(position).getIngredient());
+
+        // Set the text to TextView
+        ingredientHolder.tvIngredient.setText(spannableStringBuilder);
     }
 
     @Override
